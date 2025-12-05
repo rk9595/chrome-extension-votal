@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>agentv - Naukri Automation</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        width: 400px;
+        min-height: 500px;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+          Oxygen, Ubuntu, Cantarell, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: #333;
+      }
+
+      .container {
+        background: white;
+        margin: 8px;
+        border-radius: 12px;
+        padding: 24px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 24px;
+      }
+
+      .header h1 {
+        font-size: 20px;
+        color: #667eea;
+        margin-bottom: 8px;
+      }
+
+      .header p {
+        font-size: 12px;
+        color: #666;
+      }
+
+      .status {
+        padding: 12px;
+        border-radius: 8px;
+        margin-bottom: 16px;
+        font-size: 14px;
+      }
+
+      .status.info {
+        background: #e3f2fd;
+        color: #1976d2;
+        border-left: 4px solid #1976d2;
+      }
+
+      .status.warning {
+        background: #fff3e0;
+        color: #f57c00;
+        border-left: 4px solid #f57c00;
+      }
+
+      .status.success {
+        background: #e8f5e9;
+        color: #388e3c;
+        border-left: 4px solid #388e3c;
+      }
+
+      .status.error {
+        background: #ffebee;
+        color: #d32f2f;
+        border-left: 4px solid #d32f2f;
+      }
+
+      .button {
+        width: 100%;
+        padding: 12px 24px;
+        border: none;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+      }
+
+      .button.primary {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+      }
+
+      .button.primary:hover:not(:disabled) {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+      }
+
+      .button.secondary {
+        background: #f5f5f5;
+        color: #333;
+      }
+
+      .button.secondary:hover:not(:disabled) {
+        background: #e0e0e0;
+      }
+
+      .button:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+
+      .loading {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        border: 3px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        border-top-color: white;
+        animation: spin 0.8s linear infinite;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .form-group {
+        margin-bottom: 16px;
+      }
+
+      .form-group label {
+        display: block;
+        font-size: 12px;
+        font-weight: 600;
+        color: #666;
+        margin-bottom: 6px;
+      }
+
+      .form-group input {
+        width: 100%;
+        padding: 10px;
+        border: 2px solid #e0e0e0;
+        border-radius: 6px;
+        font-size: 14px;
+        transition: border-color 0.3s;
+      }
+
+      .form-group input:focus {
+        outline: none;
+        border-color: #667eea;
+      }
+
+      .checkbox-group {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 16px;
+        font-size: 12px;
+        color: #666;
+      }
+
+      .checkbox-group input[type='checkbox'] {
+        width: auto;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      .success-message {
+        text-align: center;
+        padding: 16px;
+      }
+
+      .success-message h2 {
+        color: #388e3c;
+        margin-bottom: 8px;
+      }
+
+      .code-display {
+        background: #f5f5f5;
+        padding: 12px;
+        border-radius: 6px;
+        font-family: 'Courier New', monospace;
+        font-size: 11px;
+        word-break: break-all;
+        margin-top: 12px;
+        max-height: 150px;
+        overflow-y: auto;
+      }
+
+      .copy-button {
+        margin-top: 8px;
+        padding: 8px 16px;
+        font-size: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>🤖 agentv</h1>
+        <p>Naukri automation tasks</p>
+      </div>
+
+      <div id="statusMessage" class="status info hidden"></div>
+
+      <div id="mainContent">
+        <div class="form-group">
+          <label for="apiEndpoint">Server API Endpoint (for file upload)</label>
+          <input
+            type="text"
+            id="apiEndpoint"
+            placeholder="https://your-domain.com or http://localhost:3000"
+            value=""
+          />
+          <p style="font-size: 11px; color: #999; margin-top: 4px">
+            Where to send the downloaded file after automation completes
+          </p>
+        </div>
+
+        <div class="form-group">
+          <label for="orgId">Organization ID</label>
+          <input
+            type="text"
+            id="orgId"
+            placeholder="Enter your organization ID"
+          />
+        </div>
+
+        <button id="checkLoginBtn" class="button secondary">
+          Check Page Status
+        </button>
+
+        <button id="openNaukriBtn" class="button secondary">
+          Open Naukri Job Listing
+        </button>
+
+        <div
+          style="
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 2px solid #e0e0e0;
+          "
+        >
+          <h3 style="font-size: 14px; color: #667eea; margin-bottom: 12px">
+            🤖 Automation Tasks
+          </h3>
+          <p style="font-size: 12px; color: #666; margin-bottom: 16px">
+            Automation runs directly in your browser.
+            <strong>Navigate to the job applications page first</strong> (URL
+            should contain "/applies"), then click the button below.
+          </p>
+
+          <div class="form-group">
+            <label for="jobTitle"
+              >Job Title (optional - for reference only)</label
+            >
+            <input
+              type="text"
+              id="jobTitle"
+              placeholder="e.g., Quality Control - Assistant Manager"
+            />
+            <p style="font-size: 11px; color: #999; margin-top: 4px">
+              This is only used for metadata. Make sure you're on the
+              applications page before clicking Download.
+            </p>
+          </div>
+
+          <button id="downloadCandidatesBtn" class="button primary" disabled>
+            <span id="downloadCandidatesBtnText">📥 Download Candidates</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="popup.js"></script>
+  </body>
+</html>

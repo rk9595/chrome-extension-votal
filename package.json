@@ -1,0 +1,23 @@
+{
+  "name": "votalai-naukri-chrome-extension",
+  "version": "1.0.1",
+  "description": "Chrome extension for Naukri.com automation and session capture",
+  "scripts": {
+    "build": "node build.js",
+    "build:unix": "bash build-extension.sh",
+    "build:win": "powershell -ExecutionPolicy Bypass -File build-extension.ps1"
+  },
+  "keywords": [
+    "chrome-extension",
+    "naukri",
+    "automation",
+    "session-capture"
+  ],
+  "author": "VotalAI",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/votalai-chrome-extension.git"
+  }
+}
+

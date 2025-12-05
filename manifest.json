@@ -1,0 +1,55 @@
+{
+  "manifest_version": 3,
+  "version": "1.0.1",
+  "name": "agentv - Naukri Automation",
+  "description": "Trigger Naukri.com automation tasks directly from your browser. This extension captures your authenticated session and enables automation workflows.",
+  "permissions": [
+    "cookies",
+    "storage",
+    "tabs",
+    "activeTab",
+    "scripting",
+    "downloads"
+  ],
+  "host_permissions": [
+    "https://*.naukri.com/*",
+    "https://*.naukrigulf.com/*",
+    "https://resdex.naukri.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*.naukri.com/*",
+        "https://*.naukrigulf.com/*",
+        "https://resdex.naukri.com/*"
+      ],
+      "js": ["content-script.js", "automation.js"],
+      "run_at": "document_idle",
+      "all_frames": false
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["injected.js"],
+      "matches": [
+        "https://*.naukri.com/*",
+        "https://*.naukrigulf.com/*",
+        "https://resdex.naukri.com/*"
+      ]
+    }
+  ]
+}
