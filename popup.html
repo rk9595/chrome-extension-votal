@@ -135,6 +135,17 @@
         margin-bottom: 16px;
       }
 
+      .inline-fields {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .inline-fields .form-group {
+        flex: 1 1 160px;
+        margin-bottom: 0;
+      }
+
       .form-group label {
         display: block;
         font-size: 12px;
@@ -152,7 +163,19 @@
         transition: border-color 0.3s;
       }
 
-      .form-group input:focus {
+      .form-group textarea {
+        width: 100%;
+        padding: 10px;
+        border: 2px solid #e0e0e0;
+        border-radius: 6px;
+        font-size: 13px;
+        min-height: 70px;
+        resize: vertical;
+        transition: border-color 0.3s;
+      }
+
+      .form-group input:focus,
+      .form-group textarea:focus {
         outline: none;
         border-color: #667eea;
       }
@@ -235,6 +258,29 @@
           />
         </div>
 
+        <div class="form-group">
+          <label for="interviewId"
+            >Interview ID (required for search sync)</label
+          >
+          <input
+            type="text"
+            id="interviewId"
+            placeholder="Enter interview ID provided by Votal.ai"
+          />
+          <p style="font-size: 11px; color: #999; margin-top: 4px">
+            We use this to attach candidates to the right job in your dashboard.
+          </p>
+        </div>
+
+        <div class="form-group">
+          <label for="jobId">Job ID (optional)</label>
+          <input
+            type="text"
+            id="jobId"
+            placeholder="Optional job ID for progress tracking"
+          />
+        </div>
+
         <button id="checkLoginBtn" class="button secondary">
           Check Page Status
         </button>
@@ -276,6 +322,95 @@
 
           <button id="downloadCandidatesBtn" class="button primary" disabled>
             <span id="downloadCandidatesBtnText">📥 Download Candidates</span>
+          </button>
+        </div>
+
+        <div
+          style="
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 2px solid #e0e0e0;
+          "
+        >
+          <h3 style="font-size: 14px; color: #667eea; margin-bottom: 12px">
+            🔍 Resdex Search Automation
+          </h3>
+          <p style="font-size: 12px; color: #666; margin-bottom: 16px">
+            Open the Naukri <strong>Advanced Candidate Search</strong> page
+            (Resdex) before running this automation. We'll fill in the fields
+            below and click "Search candidates" for you.
+          </p>
+
+          <div class="form-group">
+            <label for="searchApiEndpoint"
+              >Search API Endpoint (for candidate sync)</label
+            >
+            <input
+              type="text"
+              id="searchApiEndpoint"
+              placeholder="https://your-domain.com or http://localhost:3000"
+            />
+            <p style="font-size: 11px; color: #999; margin-top: 4px">
+              Where to send the candidates captured from Resdex search results.
+            </p>
+          </div>
+
+          <div class="form-group">
+            <label for="searchKeywords">Keywords (comma separated)</label>
+            <textarea
+              id="searchKeywords"
+              placeholder="e.g., Tally, Excel, Inventory Compliance"
+            ></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="searchLocation">Candidate Location</label>
+            <input
+              type="text"
+              id="searchLocation"
+              placeholder="e.g., Bharuch, Gujarat"
+            />
+          </div>
+
+          <div class="inline-fields" style="margin-bottom: 16px">
+            <div class="form-group">
+              <label for="searchMinExperience">Min Experience (years)</label>
+              <input
+                type="number"
+                id="searchMinExperience"
+                min="0"
+                max="50"
+                placeholder="2"
+              />
+            </div>
+            <div class="form-group">
+              <label for="searchMaxExperience">Max Experience (years)</label>
+              <input
+                type="number"
+                id="searchMaxExperience"
+                min="0"
+                max="50"
+                placeholder="5"
+              />
+            </div>
+            <div class="form-group">
+              <label for="numberOfCandidates"># Candidates to capture</label>
+              <input
+                type="number"
+                id="numberOfCandidates"
+                min="1"
+                max="40"
+                placeholder="20"
+              />
+            </div>
+          </div>
+
+          <button id="runNaukriSearchBtn" class="button primary" disabled>
+            <span id="runNaukriSearchBtnText">🔍 Run Naukri Search</span>
+          </button>
+
+          <button id="sendCandidatesBtn" class="button secondary" disabled>
+            <span id="sendCandidatesBtnText">📤 Send Candidates to Server</span>
           </button>
         </div>
       </div>

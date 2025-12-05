@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "version": "1.0.1",
   "name": "agentv - Naukri Automation",
-  "description": "Trigger Naukri.com automation tasks directly from your browser. This extension captures your authenticated session and enables automation workflows.",
+  "description": "Trigger Naukri.com automation tasks directly from your browser. This extension enables automation workflows.",
   "permissions": [
     "cookies",
     "storage",
