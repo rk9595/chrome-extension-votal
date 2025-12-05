@@ -5,13 +5,10 @@ Chrome extension for automating Naukri.com candidate downloads and session manag
 ## Overview
 
 This extension enables users to:
-- Capture authenticated Naukri.com sessions
 - Automate candidate downloads from job applications
 - Upload downloaded files directly to the agentv platform
 
 ## Features
-
-- 🔐 **Session Capture**: Securely captures cookies and session data from Naukri.com
 - 🤖 **Browser Automation**: Runs automation directly in the user's browser
 - 📤 **Direct Upload**: Automatically uploads downloaded files to your server
 - 🎯 **Easy Setup**: Simple configuration with API endpoint and Organization ID
